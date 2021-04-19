@@ -1,0 +1,6 @@
+dev:
+  handler: src/handlers/server.handler
+  events:
+    - http:
+        method: any
+        path: /{proxy+}

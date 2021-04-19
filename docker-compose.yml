@@ -1,0 +1,17 @@
+version: '3.2'
+
+services:
+  db:
+    image: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: onrise
+      POSTGRES_DB: on-rise
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres:/data/postgres
+
+volumes:
+  postgres:

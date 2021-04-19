@@ -1,0 +1,50 @@
+# Welcome to Serverless!
+#
+# This file is the main config file for your service.
+# It's very minimal at this point and uses default values.
+# You can always add more config options for more control.
+# We've included some commented out config examples here.
+# Just uncomment any of them to get that config option.
+#
+# For full config options, check the docs:
+#    docs.serverless.com
+#
+# Happy Coding!
+
+service: on-the-rise-api
+# app and org for use with dashboard.serverless.com
+#app: your-app-name
+#org: your-org-name
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-plugin-optimize
+  - serverless-offline
+  - serverless-dotenv-plugin
+
+# You can pin your service to only deploy with a specific Serverless version
+# Check out our docs for more details
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'ap-southeast-1'}
+  lambdaHashingVersion: 20201221
+  environment:
+    NODE_ENV: ${opt:stage, 'dev'}
+    REGION: ${opt:region, 'ap-southeast-1'}
+  apiGateway:
+    shouldStartNameWithService: true
+
+useDotenv: true
+
+configValidationMode: error
+
+custom:
+  serverless-offline:
+    allowCache: false
+  optimize:
+    external: ['swagger-ui-dist']
+
+functions:
+  - ${file(./resources/lambdas/server.yml)}
